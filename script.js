@@ -9,6 +9,14 @@ const ROLES = [
   { id: 'doc', label: '다큐멘터리 에디터' },
 ];
 
+// 장르별 썸네일 듀오톤 (CSS 변수 매핑)
+const GENRE_TONES = {
+  '드라마': ['--tone-drama-1', '--tone-drama-2'],
+  '스릴러': ['--tone-thriller-1', '--tone-thriller-2'],
+  '다큐멘터리': ['--tone-doc-1', '--tone-doc-2'],
+  '예고편': ['--tone-trailer-1', '--tone-trailer-2'],
+};
+
 // ---------------------------------------------
 // 작품 데이터 (포트폴리오 예시)
 // ---------------------------------------------
@@ -17,7 +25,6 @@ const WORKS = [
     id: 1,
     year: 2024,
     title: '밤의 조각들',
-    titleEn: 'Fragments of Night',
     director: '박서준',
     genre: '드라마',
     role: 'lead',
@@ -31,7 +38,6 @@ const WORKS = [
     id: 2,
     year: 2023,
     title: '여름, 어른',
-    titleEn: 'Summer, Grown',
     director: '정다은',
     genre: '드라마',
     role: 'lead',
@@ -45,7 +51,6 @@ const WORKS = [
     id: 3,
     year: 2023,
     title: '적막의 시간',
-    titleEn: 'Hour of Silence',
     director: '이도현',
     genre: '스릴러',
     role: 'assistant',
@@ -59,7 +64,6 @@ const WORKS = [
     id: 4,
     year: 2022,
     title: '빛과 그림자',
-    titleEn: 'Light and Shadow',
     director: '최윤서',
     genre: '다큐멘터리',
     role: 'doc',
@@ -73,7 +77,6 @@ const WORKS = [
     id: 5,
     year: 2022,
     title: '노스탤지어',
-    titleEn: 'Nostalgia',
     director: '강민호',
     genre: '예고편',
     role: 'trailer',
@@ -86,7 +89,6 @@ const WORKS = [
     id: 6,
     year: 2021,
     title: '우리가 사랑한 계절',
-    titleEn: 'The Season We Loved',
     director: '김하늘',
     genre: '드라마',
     role: 'lead',
@@ -100,7 +102,6 @@ const WORKS = [
     id: 7,
     year: 2021,
     title: '고요한 방',
-    titleEn: 'The Quiet Room',
     director: '오세훈',
     genre: '드라마',
     role: 'assistant',
@@ -113,7 +114,6 @@ const WORKS = [
     id: 8,
     year: 2020,
     title: '바다의 기억',
-    titleEn: 'Memory of the Sea',
     director: '신지훈',
     genre: '다큐멘터리',
     role: 'doc',
@@ -127,7 +127,6 @@ const WORKS = [
     id: 9,
     year: 2020,
     title: '런던, 다시',
-    titleEn: 'London, Again',
     director: '한소희',
     genre: '예고편',
     role: 'trailer',
@@ -140,7 +139,6 @@ const WORKS = [
     id: 10,
     year: 2019,
     title: '겨울 손님',
-    titleEn: 'Winter Guest',
     director: '한소희',
     genre: '드라마',
     role: 'lead',
@@ -153,7 +151,6 @@ const WORKS = [
     id: 11,
     year: 2019,
     title: '안개 속에서',
-    titleEn: 'In the Fog',
     director: '윤태호',
     genre: '스릴러',
     role: 'assistant',
@@ -168,7 +165,6 @@ const WORKS = [
 // 상태
 // ---------------------------------------------
 let activeRole = 'all';
-let openWorkId = null;
 
 // ---------------------------------------------
 // 렌더링
@@ -180,11 +176,11 @@ const emptyState = document.getElementById('emptyState');
 function renderFilters() {
   filterList.innerHTML = '';
   ROLES.forEach((role) => {
-    const li = document.createElement('li');
-    li.className = 'filter__item';
-
     const count =
       role.id === 'all' ? WORKS.length : WORKS.filter((w) => w.role === role.id).length;
+
+    const li = document.createElement('li');
+    li.className = 'filter__item';
 
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -193,7 +189,6 @@ function renderFilters() {
     btn.setAttribute('aria-pressed', String(role.id === activeRole));
     btn.addEventListener('click', () => {
       activeRole = role.id;
-      openWorkId = null;
       renderFilters();
       renderWorks();
     });
@@ -216,53 +211,32 @@ function renderWorks() {
   emptyState.hidden = true;
 
   filtered.forEach((work) => {
+    const [toneAVar, toneBVar] = GENRE_TONES[work.genre] || GENRE_TONES['드라마'];
+
     const li = document.createElement('li');
     li.className = 'work';
 
-    const isOpen = openWorkId === work.id;
-
     li.innerHTML = `
-      <button type="button" class="work__row" aria-expanded="${isOpen}" data-id="${work.id}">
-        <span class="work__top">
-          <span class="work__year">${work.year}</span>
-          <span class="work__role-tag">${work.roleLabel}</span>
-        </span>
-        <span class="work__title">${work.title}</span>
-        <span class="work__meta">
+      <div class="work__info">
+        <div class="work__meta">
+          <span>${work.year}</span>
           <span>${work.director} 감독</span>
-          <span>${work.genre}</span>
-        </span>
-      </button>
-      <div class="work__detail" data-open="${isOpen}">
-        <div class="work__detail-inner">
-          <div class="work__detail-facts">
-            <p class="work__detail-row"><strong>역할</strong>${work.roleLabel}</p>
-            <p class="work__detail-row"><strong>러닝타임</strong>${work.runtime}</p>
-            ${
-              work.festival
-                ? `<p class="work__detail-row"><strong>비고</strong>${work.festival}</p>`
-                : ''
-            }
-          </div>
-          <p class="work__synopsis">${work.synopsis}</p>
         </div>
+        <h3 class="work__title">${work.title}</h3>
+        <p class="work__desc">${work.synopsis}</p>
+        <div class="work__facts">
+          <span><strong>러닝타임</strong> ${work.runtime}</span>
+          ${work.festival ? `<span><strong>비고</strong> ${work.festival}</span>` : ''}
+        </div>
+      </div>
+      <div class="work__thumb">
+        <span class="work__thumb-tone" style="--tone-a: var(${toneAVar}); --tone-b: var(${toneBVar});"></span>
+        <span class="work__thumb-role">${work.roleLabel}</span>
+        <span class="work__thumb-year">${work.year}</span>
       </div>
     `;
 
     workList.appendChild(li);
-  });
-
-  // 상세 패널 높이 계산 (max-height 트랜지션을 위해)
-  workList.querySelectorAll('.work__detail[data-open="true"]').forEach((el) => {
-    el.style.maxHeight = el.scrollHeight + 'px';
-  });
-
-  workList.querySelectorAll('.work__row').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = Number(btn.dataset.id);
-      openWorkId = openWorkId === id ? null : id;
-      renderWorks();
-    });
   });
 }
 
