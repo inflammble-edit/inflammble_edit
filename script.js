@@ -3,10 +3,10 @@
 // ---------------------------------------------
 const ROLES = [
   { id: 'all', label: '전체' },
-  { id: 'lead', label: '리드 에디터' },
-  { id: 'assistant', label: '조에디터' },
-  { id: 'trailer', label: '트레일러 에디터' },
-  { id: 'doc', label: '다큐멘터리 에디터' },
+  { id: 'editor_feature film', label: '장편영화 편집' },
+  { id: 'editor_short film', label: '단편영화 편집' },
+  { id: 'assistant editor_feature film', label: '장편영화 편집보조' },
+  { id: 'assistant editor_drame series', label: '드라마 편집보조' },
 ];
 
 // 장르별 썸네일 듀오톤 (CSS 변수 매핑)
