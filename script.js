@@ -49,14 +49,16 @@ const WORKS = [
   },
   {
     id: 3,
-    year: 2023,
-    title: '적막의 시간',
-    director: '이도현',
+    year: 2026,
+    title: '정동',
+    director: '안혜림',
     genre: '스릴러',
-    role: 'assistant',
-    roleLabel: '조에디터',
-    runtime: '110분',
-    festival: '',
+    role: 'editor_short film',
+    roleLabel: '단편영화 편집',
+    runtime: '21분',
+    festival: '제19회 여성인권영화제 피움 피움초이스 초청 (2026) 
+              제22회 인천여성영화제 초청 (2026)
+              제14회 디아스포라영화제(2026) - 디아스포라 단편 초청/관객상 수상(폐막작)',
     synopsis:
       '실종 사건을 쫓는 형사의 이야기. 리드 에디터와 함께 초반 가편집과 사운드 큐 정리를 담당했습니다.',
   },
