@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>이하은 — Film Editor</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- 상단 내비게이션 -->
+  <header class="nav">
+    <a href="#home" class="nav__logo" aria-label="홈으로 이동">
+      <span class="nav__mark">＊</span>이하은
+    </a>
+    <nav class="nav__menu" aria-label="주요 메뉴">
+      <a href="#home">홈</a>
+      <a href="#work">작업</a>
+      <a href="#about">소개</a>
+      <a href="#contact">문의</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- 히어로 -->
+    <section class="hero" id="home">
+      <div class="hero__figure">
+        <img src="profile.jpg" alt="이하은 프로필 사진" class="hero__photo" />
+      </div>
+
+      <h1 class="hero__name">이하은</h1>
+
+      <ul class="hero__tags">
+        <li>리드 에디터</li>
+        <li>조에디터</li>
+        <li>트레일러 에디터</li>
+        <li>다큐멘터리 에디터</li>
+      </ul>
+
+      <a href="#about" class="hero__scroll" aria-label="아래로 스크롤">↓</a>
+    </section>
+
+    <!-- 소개 / 문의 -->
+    <section class="about" id="about">
+      <p class="about__statement">
+        안녕하세요, 저는 서울을 기반으로 활동하는 영화 편집자 이하은입니다.
+        장편, 다큐멘터리, 예고편을 오가며 컷과 컷 사이의 호흡으로
+        이야기의 리듬을 만듭니다. 함께 작업하고 싶다면 편하게 연락 주세요.
+      </p>
+      <a href="#contact" class="btn">문의하기</a>
+    </section>
+
+    <!-- 필모그래피 -->
+    <section class="filmography" id="work">
+      <div class="filmography__head">
+        <h2>필모그래피</h2>
+        <p>역할별로 참여한 작품을 확인할 수 있습니다.</p>
+      </div>
+
+      <nav class="filter" aria-label="역할 필터">
+        <ul class="filter__list" id="filterList"></ul>
+      </nav>
+
+      <ul class="list" id="workList"></ul>
+      <p class="list__empty" id="emptyState" hidden>해당 역할로 참여한 작품이 아직 없습니다.</p>
+    </section>
+
+  </main>
+
+  <!-- 푸터 / 문의 -->
+  <footer class="footer" id="contact">
+    <p class="footer__email">
+      <a href="mailto:haeun.lee.edit@example.com">haeun.lee.edit@example.com</a>
+    </p>
+    <ul class="footer__social">
+      <li><a href="#" target="_blank" rel="noopener">IMDb</a></li>
+      <li><a href="#" target="_blank" rel="noopener">Vimeo</a></li>
+      <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+    </ul>
+    <p class="footer__copy">© 2024 Lee Haeun. 이 페이지의 작품 정보는 포트폴리오 예시입니다.</p>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>
