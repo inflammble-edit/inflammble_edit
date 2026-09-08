@@ -1,0 +1,333 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap');
+
+/* -------------------------------------------------
+   Alpino Variable — 로컬에 폰트가 설치되어 있으면 사용,
+   없으면 시스템 산세리프 + Noto Sans KR로 자연스럽게 대체됨
+------------------------------------------------- */
+@font-face {
+  font-family: 'Alpino Variable';
+  src: local('Alpino Variable'), local('AlpinoVariable'), local('Alpino');
+  font-weight: 100 900;
+  font-stretch: 75% 125%;
+}
+
+:root {
+  /* Color */
+  --bg: #08080a;
+  --bg-raised: #101012;
+  --fg: #ece7dd;
+  --fg-dim: #8c887e;
+  --fg-faint: #4d4a44;
+  --accent: #b8935a;
+  --line: #232220;
+
+  /* Type */
+  --font: 'Alpino Variable', 'Noto Sans KR', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+
+  /* Layout */
+  --content-width: 860px;
+  --gap: clamp(1.5rem, 4vw, 3rem);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: clamp(3rem, 8vh, 6rem) 1.5rem clamp(3rem, 8vh, 5rem);
+}
+
+/* -------------------- 헤더 -------------------- */
+
+.intro {
+  margin-bottom: clamp(3rem, 8vh, 5rem);
+}
+
+.intro__name {
+  font-size: clamp(2.75rem, 7vw, 4.25rem);
+  font-weight: 600;
+  font-variation-settings: 'wght' 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 0 0.5rem;
+}
+
+.intro__role {
+  font-size: 1.15rem;
+  font-weight: 500;
+  margin: 0 0 1.5rem;
+  color: var(--fg);
+}
+
+.intro__dim {
+  color: var(--fg-dim);
+  font-weight: 400;
+}
+
+.intro__statement {
+  max-width: 42ch;
+  color: var(--fg-dim);
+  font-size: 1rem;
+  margin: 0 0 1.75rem;
+}
+
+.intro__contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.intro__contact a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--fg-faint);
+  padding-bottom: 2px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.intro__contact a:hover,
+.intro__contact a:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* -------------------- 필터 -------------------- */
+
+.filter {
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0.5rem;
+  overflow-x: auto;
+}
+
+.filter__list {
+  display: flex;
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.filter__item {
+  padding: 0.9rem 0;
+  white-space: nowrap;
+}
+
+.filter__btn {
+  background: none;
+  border: none;
+  color: var(--fg-dim);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0.15rem 0 0.5rem;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.filter__btn:hover,
+.filter__btn:focus-visible {
+  color: var(--fg);
+}
+
+.filter__btn[aria-pressed="true"] {
+  color: var(--fg);
+  border-bottom-color: var(--accent);
+}
+
+/* -------------------- 목록 헤더 (넓은 화면에서만) -------------------- */
+
+.list__head {
+  display: none;
+}
+
+@media (min-width: 700px) {
+  .list__head {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr 11rem 8rem;
+    gap: 1rem;
+    padding: 1.25rem 0 0.5rem;
+    font-size: 0.8rem;
+    color: var(--fg-faint);
+  }
+}
+
+/* -------------------- 작품 목록 -------------------- */
+
+.list {
+  border-top: 1px solid var(--line);
+}
+
+.list__empty {
+  padding: 3rem 0;
+  color: var(--fg-dim);
+}
+
+.work {
+  border-bottom: 1px solid var(--line);
+}
+
+.work__row {
+  width: 100%;
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  align-items: baseline;
+  gap: 0.15rem 1rem;
+  padding: 1.4rem 0;
+}
+
+@media (min-width: 700px) {
+  .work__row {
+    grid-template-columns: 4.5rem 1fr 11rem 8rem;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.work__year {
+  font-size: 0.95rem;
+  color: var(--fg-dim);
+  font-variation-settings: 'wght' 400;
+}
+
+.work__title {
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  font-weight: 500;
+  font-variation-settings: 'wght' 500;
+  letter-spacing: -0.01em;
+  grid-column: 2 / -1;
+}
+
+@media (min-width: 700px) {
+  .work__title {
+    grid-column: auto;
+  }
+}
+
+.work__director,
+.work__genre {
+  display: none;
+  color: var(--fg-dim);
+  font-size: 0.92rem;
+}
+
+@media (min-width: 700px) {
+  .work__director,
+  .work__genre {
+    display: block;
+  }
+}
+
+.work__row:hover .work__title,
+.work__row:focus-visible .work__title {
+  color: var(--accent);
+}
+
+.work__row[aria-expanded="true"] .work__title {
+  color: var(--accent);
+}
+
+.work__meta-mobile {
+  grid-column: 2 / -1;
+  color: var(--fg-dim);
+  font-size: 0.88rem;
+  margin-top: 0.15rem;
+}
+
+@media (min-width: 700px) {
+  .work__meta-mobile {
+    display: none;
+  }
+}
+
+/* -------------------- 상세 패널 -------------------- */
+
+.work__detail {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease;
+}
+
+.work__detail[data-open="true"] {
+  max-height: 32rem;
+}
+
+.work__detail-inner {
+  padding: 0 0 1.75rem;
+  display: grid;
+  gap: 0.6rem;
+  max-width: 60ch;
+}
+
+.work__detail-row {
+  font-size: 0.92rem;
+  color: var(--fg-dim);
+}
+
+.work__detail-row strong {
+  color: var(--fg);
+  font-weight: 500;
+  margin-right: 0.4em;
+}
+
+.work__synopsis {
+  color: var(--fg);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin: 0.3rem 0 0;
+}
+
+/* -------------------- 푸터 -------------------- */
+
+.footer {
+  margin-top: clamp(3rem, 8vh, 5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--fg-faint);
+  font-size: 0.82rem;
+}
+
+/* -------------------- 접근성 / 모션 -------------------- */
+
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .work__detail,
+  .filter__btn,
+  .intro__contact a {
+    transition: none;
+  }
+}
