@@ -3,10 +3,10 @@
 // ---------------------------------------------
 const ROLES = [
   { id: 'all', label: '전체' },
-  { id: 'editor_feature film', label: '장편영화 편집' },
-  { id: 'editor_short film', label: '단편영화 편집' },
-  { id: 'assistant editor_feature film', label: '장편영화 편집보조' },
-  { id: 'assistant editor_drame series', label: '드라마 편집보조' },
+  { id: 'lead', label: '리드 에디터' },
+  { id: 'assistant', label: '조에디터' },
+  { id: 'trailer', label: '트레일러 에디터' },
+  { id: 'doc', label: '다큐멘터리 에디터' },
 ];
 
 // 장르별 썸네일 듀오톤 (CSS 변수 매핑)
@@ -23,42 +23,40 @@ const GENRE_TONES = {
 const WORKS = [
   {
     id: 1,
-    year: 2026,
-    title: '내가 그린 오늘 그림은',
-    director: '이진영',
+    year: 2024,
+    title: '밤의 조각들',
+    director: '박서준',
     genre: '드라마',
-    role: 'editor_feature film',
-    roleLabel: '장편영화 편집',
-    runtime: '95분',
-    festival: '제22회 제천국제음악영화제 초청 (2026)',
+    role: 'lead',
+    roleLabel: '리드 에디터',
+    runtime: '118분',
+    festival: '부산국제영화제 경쟁부문 상영',
     synopsis:
-      '방구석 예술가 아정, 가까스로 동네 문화센터에 그림책 강사로 취업하지만 그녀의 수업은 수강생 현준으로 인해 시작하자마자 폐강 위기에 놓인다.',
+      '기억을 잃어가는 아버지와 그를 돌보는 딸의 마지막 여름을 담은 드라마. 파편적인 기억의 흐름을 편집으로 재구성했습니다.',
   },
   {
     id: 2,
-    year: 2026,
-    title: '종말의 인간',
-    director: '허건',
+    year: 2023,
+    title: '여름, 어른',
+    director: '정다은',
     genre: '드라마',
-    role: 'editor_feature film',
-    roleLabel: '장편영화 편집',
-    runtime: '79분',
-    festival: '제30회 부천국제판타스틱영화제 부천초이스 코리안 초청 (2026)',
+    role: 'lead',
+    roleLabel: '리드 에디터',
+    runtime: '102분',
+    festival: '전주국제영화제 한국경쟁 초청',
     synopsis:
-      '대기 오염으로 인류는 방공호에서 살아야 하는 디스토피아적 미래. 과학자 대승은 딸 신아를 대상으로 끊임없이 실험을 한다. 오염된 바깥 환경에서도 생존할 수 있는 새로운 인류는 과연 탄생할 수 있을까? ',
+      '세 친구의 마지막 방학을 그린 성장 영화. 인물 간 대사의 리듬을 살리기 위해 롱테이크 위주로 편집했습니다.',
   },
   {
     id: 3,
-    year: 2026,
-    title: '정동',
-    director: '안혜림',
+    year: 2023,
+    title: '적막의 시간',
+    director: '이도현',
     genre: '스릴러',
-    role: 'editor_short film',
-    roleLabel: '단편영화 편집',
-    runtime: '21분',
-    festival: '제19회 여성인권영화제 피움 피움초이스 초청 (2026) 
-              제22회 인천여성영화제 초청 (2026)
-              제14회 디아스포라영화제(2026) - 디아스포라 단편 초청/관객상 수상(폐막작)',
+    role: 'assistant',
+    roleLabel: '조에디터',
+    runtime: '110분',
+    festival: '',
     synopsis:
       '실종 사건을 쫓는 형사의 이야기. 리드 에디터와 함께 초반 가편집과 사운드 큐 정리를 담당했습니다.',
   },
