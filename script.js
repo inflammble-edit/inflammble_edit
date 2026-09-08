@@ -183,10 +183,13 @@ function renderFilters() {
     const li = document.createElement('li');
     li.className = 'filter__item';
 
+    const count =
+      role.id === 'all' ? WORKS.length : WORKS.filter((w) => w.role === role.id).length;
+
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'filter__btn';
-    btn.textContent = role.label;
+    btn.innerHTML = `${role.label}<span class="filter__count">${count}</span>`;
     btn.setAttribute('aria-pressed', String(role.id === activeRole));
     btn.addEventListener('click', () => {
       activeRole = role.id;
@@ -220,21 +223,27 @@ function renderWorks() {
 
     li.innerHTML = `
       <button type="button" class="work__row" aria-expanded="${isOpen}" data-id="${work.id}">
-        <span class="work__year">${work.year}</span>
+        <span class="work__top">
+          <span class="work__year">${work.year}</span>
+          <span class="work__role-tag">${work.roleLabel}</span>
+        </span>
         <span class="work__title">${work.title}</span>
-        <span class="work__director">${work.director} 감독</span>
-        <span class="work__genre">${work.genre}</span>
-        <span class="work__meta-mobile">${work.director} 감독 · ${work.genre}</span>
+        <span class="work__meta">
+          <span>${work.director} 감독</span>
+          <span>${work.genre}</span>
+        </span>
       </button>
       <div class="work__detail" data-open="${isOpen}">
         <div class="work__detail-inner">
-          <p class="work__detail-row"><strong>역할</strong>${work.roleLabel}</p>
-          <p class="work__detail-row"><strong>러닝타임</strong>${work.runtime}</p>
-          ${
-            work.festival
-              ? `<p class="work__detail-row"><strong>비고</strong>${work.festival}</p>`
-              : ''
-          }
+          <div class="work__detail-facts">
+            <p class="work__detail-row"><strong>역할</strong>${work.roleLabel}</p>
+            <p class="work__detail-row"><strong>러닝타임</strong>${work.runtime}</p>
+            ${
+              work.festival
+                ? `<p class="work__detail-row"><strong>비고</strong>${work.festival}</p>`
+                : ''
+            }
+          </div>
           <p class="work__synopsis">${work.synopsis}</p>
         </div>
       </div>
