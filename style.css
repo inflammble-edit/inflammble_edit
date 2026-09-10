@@ -141,13 +141,9 @@ section {
 }
 
 .hero__figure {
-  width: clamp(160px, 32vw, 240px);
-  aspect-ratio: 3 / 4;
-  margin-bottom: 1.5rem;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--chip-bg);
+  width: clamp(170px, 32vw, 250px);
+  aspect-ratio: 480 / 615;
+  margin-bottom: 1.25rem;
 }
 
 .hero__photo {
