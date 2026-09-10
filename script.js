@@ -23,6 +23,7 @@ const ROLE_TONES = {
 const WORKS = [
   {
     id: 1,
+    image: 'images/work-01.jpg',
     year: 2024,
     title: '밤의 조각들',
     director: '박서준',
@@ -36,6 +37,7 @@ const WORKS = [
   },
   {
     id: 2,
+    image: 'images/work-02.jpg',
     year: 2023,
     title: '여름, 어른',
     director: '정다은',
@@ -49,6 +51,7 @@ const WORKS = [
   },
   {
     id: 3,
+    image: 'images/work-03.jpg',
     year: 2023,
     title: '적막의 시간',
     director: '이도현',
@@ -62,6 +65,7 @@ const WORKS = [
   },
   {
     id: 4,
+    image: 'images/work-04.jpg',
     year: 2022,
     title: '빛과 그림자',
     director: '최윤서',
@@ -75,6 +79,7 @@ const WORKS = [
   },
   {
     id: 5,
+    image: 'images/work-05.jpg',
     year: 2022,
     title: '노스탤지어',
     director: '강민호',
@@ -87,6 +92,7 @@ const WORKS = [
   },
   {
     id: 6,
+    image: 'images/work-06.jpg',
     year: 2021,
     title: '우리가 사랑한 계절',
     director: '김하늘',
@@ -100,6 +106,7 @@ const WORKS = [
   },
   {
     id: 7,
+    image: 'images/work-07.jpg',
     year: 2021,
     title: '고요한 방',
     director: '오세훈',
@@ -112,6 +119,7 @@ const WORKS = [
   },
   {
     id: 8,
+    image: 'images/work-08.jpg',
     year: 2020,
     title: '바다의 기억',
     director: '신지훈',
@@ -125,6 +133,7 @@ const WORKS = [
   },
   {
     id: 9,
+    image: 'images/work-09.jpg',
     year: 2020,
     title: '런던, 다시',
     director: '한소희',
@@ -137,6 +146,7 @@ const WORKS = [
   },
   {
     id: 10,
+    image: 'images/work-10.jpg',
     year: 2019,
     title: '겨울 손님',
     director: '한소희',
@@ -149,6 +159,7 @@ const WORKS = [
   },
   {
     id: 11,
+    image: 'images/work-11.jpg',
     year: 2019,
     title: '안개 속에서',
     director: '윤태호',
@@ -242,6 +253,12 @@ function renderWorks() {
       </div>
       <div class="work__thumb">
         <span class="work__thumb-tone" style="--tone-a: var(${toneAVar}); --tone-b: var(${toneBVar});"></span>
+        <img
+          src="${work.image}"
+          alt="${work.title} 스틸컷"
+          class="work__thumb-img"
+          onerror="this.style.display='none'"
+        />
         <span class="work__thumb-role">${work.roleLabel}</span>
         <span class="work__thumb-year">${work.year}</span>
       </div>
@@ -263,9 +280,19 @@ function renderWorks() {
 // 상세 모달
 // ---------------------------------------------
 function openWorkModal(work) {
+  if (!workModal) return;
+
   const [toneAVar, toneBVar] = ROLE_TONES[work.role] || ROLE_TONES.lead;
 
-  workModalThumb.innerHTML = `<span class="work-modal__thumb-tone" style="--tone-a: var(${toneAVar}); --tone-b: var(${toneBVar});"></span>`;
+  workModalThumb.innerHTML = `
+    <span class="work-modal__thumb-tone" style="--tone-a: var(${toneAVar}); --tone-b: var(${toneBVar});"></span>
+    <img
+      src="${work.image}"
+      alt="${work.title} 스틸컷"
+      class="work-modal__thumb-img"
+      onerror="this.style.display='none'"
+    />
+  `;
   workModalMeta.innerHTML = `<span>${work.year}</span><span>${work.director} 감독</span><span>${work.genre}</span>`;
   workModalTitle.textContent = work.title;
   workModalDesc.textContent = work.synopsis;
@@ -281,17 +308,20 @@ function openWorkModal(work) {
 }
 
 function closeWorkModal() {
+  if (!workModal) return;
   workModal.classList.remove('is-open');
   workModal.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('no-scroll');
 }
 
-workModal.querySelectorAll('[data-close]').forEach((el) => {
-  el.addEventListener('click', closeWorkModal);
-});
+if (workModal) {
+  workModal.querySelectorAll('[data-close]').forEach((el) => {
+    el.addEventListener('click', closeWorkModal);
+  });
+}
 
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && workModal.classList.contains('is-open')) {
+  if (workModal && e.key === 'Escape' && workModal.classList.contains('is-open')) {
     closeWorkModal();
   }
 });
