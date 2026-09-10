@@ -201,6 +201,12 @@ section {
   color: var(--accent);
 }
 
+.scroll-cue {
+  display: flex;
+  justify-content: center;
+  padding: 0 1.5rem clamp(2.5rem, 6vh, 4rem);
+}
+
 /* -------------------- 소개 / 문의 -------------------- */
 
 .about {
@@ -323,6 +329,12 @@ section {
   border-bottom: 1px solid var(--line);
   display: grid;
   gap: 1.5rem;
+  cursor: pointer;
+}
+
+.work:hover .work__title,
+.work:focus-visible .work__title {
+  color: var(--accent);
 }
 
 @media (min-width: 720px) {
@@ -500,4 +512,125 @@ section {
   .nav__menu a {
     transition: none;
   }
+}
+
+/* -------------------- 작품 상세 모달 -------------------- */
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+.work-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.work-modal.is-open {
+  display: flex;
+}
+
+.work-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 4, 5, 0.78);
+  backdrop-filter: blur(3px);
+}
+
+.work-modal__panel {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  max-height: 88vh;
+  overflow-y: auto;
+  background: #101012;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.75rem;
+}
+
+.work-modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--fg-dim);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.work-modal__close:hover,
+.work-modal__close:focus-visible {
+  color: var(--fg);
+  border-color: var(--accent);
+}
+
+.work-modal__thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  margin-bottom: 1.5rem;
+}
+
+.work-modal__thumb-tone {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 30% 25%,
+    var(--tone-a) 0%,
+    var(--tone-b) 60%,
+    #0c0c0d 100%
+  );
+  opacity: 0.9;
+}
+
+.work-modal__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--fg-faint);
+  margin-bottom: 0.6rem;
+}
+
+.work-modal__title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 600;
+  font-variation-settings: 'wght' 600;
+  letter-spacing: -0.015em;
+  margin: 0 0 0.9rem;
+}
+
+.work-modal__desc {
+  color: var(--fg);
+  font-size: 1rem;
+  line-height: 1.75;
+  margin: 0 0 1.25rem;
+}
+
+.work-modal__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  font-size: 0.9rem;
+  color: var(--fg-dim);
+}
+
+.work-modal__facts strong {
+  color: var(--fg-faint);
+  font-weight: 400;
+  margin-right: 0.3em;
 }

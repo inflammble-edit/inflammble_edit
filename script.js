@@ -9,12 +9,12 @@ const ROLES = [
   { id: 'doc', label: '다큐멘터리 에디터' },
 ];
 
-// 장르별 썸네일 듀오톤 (CSS 변수 매핑)
-const GENRE_TONES = {
-  '드라마': ['--tone-drama-1', '--tone-drama-2'],
-  '스릴러': ['--tone-thriller-1', '--tone-thriller-2'],
-  '다큐멘터리': ['--tone-doc-1', '--tone-doc-2'],
-  '예고편': ['--tone-trailer-1', '--tone-trailer-2'],
+// 역할별 썸네일 듀오톤 (CSS 변수 매핑)
+const ROLE_TONES = {
+  lead: ['--tone-drama-1', '--tone-drama-2'],
+  assistant: ['--tone-thriller-1', '--tone-thriller-2'],
+  trailer: ['--tone-trailer-1', '--tone-trailer-2'],
+  doc: ['--tone-doc-1', '--tone-doc-2'],
 };
 
 // ---------------------------------------------
@@ -173,6 +173,14 @@ const filterList = document.getElementById('filterList');
 const workList = document.getElementById('workList');
 const emptyState = document.getElementById('emptyState');
 
+// 상세 모달 요소
+const workModal = document.getElementById('workModal');
+const workModalThumb = document.getElementById('workModalThumb');
+const workModalMeta = document.getElementById('workModalMeta');
+const workModalTitle = document.getElementById('workModalTitle');
+const workModalDesc = document.getElementById('workModalDesc');
+const workModalFacts = document.getElementById('workModalFacts');
+
 function renderFilters() {
   filterList.innerHTML = '';
   ROLES.forEach((role) => {
@@ -211,10 +219,13 @@ function renderWorks() {
   emptyState.hidden = true;
 
   filtered.forEach((work) => {
-    const [toneAVar, toneBVar] = GENRE_TONES[work.genre] || GENRE_TONES['드라마'];
+    const [toneAVar, toneBVar] = ROLE_TONES[work.role] || ROLE_TONES.lead;
 
     const li = document.createElement('li');
     li.className = 'work';
+    li.setAttribute('tabindex', '0');
+    li.setAttribute('role', 'button');
+    li.setAttribute('aria-label', `${work.title} 상세 보기`);
 
     li.innerHTML = `
       <div class="work__info">
@@ -236,9 +247,54 @@ function renderWorks() {
       </div>
     `;
 
+    li.addEventListener('click', () => openWorkModal(work));
+    li.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openWorkModal(work);
+      }
+    });
+
     workList.appendChild(li);
   });
 }
+
+// ---------------------------------------------
+// 상세 모달
+// ---------------------------------------------
+function openWorkModal(work) {
+  const [toneAVar, toneBVar] = ROLE_TONES[work.role] || ROLE_TONES.lead;
+
+  workModalThumb.innerHTML = `<span class="work-modal__thumb-tone" style="--tone-a: var(${toneAVar}); --tone-b: var(${toneBVar});"></span>`;
+  workModalMeta.innerHTML = `<span>${work.year}</span><span>${work.director} 감독</span><span>${work.genre}</span>`;
+  workModalTitle.textContent = work.title;
+  workModalDesc.textContent = work.synopsis;
+  workModalFacts.innerHTML = `
+    <span><strong>역할</strong>${work.roleLabel}</span>
+    <span><strong>러닝타임</strong>${work.runtime}</span>
+    ${work.festival ? `<span><strong>비고</strong>${work.festival}</span>` : ''}
+  `;
+
+  workModal.classList.add('is-open');
+  workModal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('no-scroll');
+}
+
+function closeWorkModal() {
+  workModal.classList.remove('is-open');
+  workModal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('no-scroll');
+}
+
+workModal.querySelectorAll('[data-close]').forEach((el) => {
+  el.addEventListener('click', closeWorkModal);
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && workModal.classList.contains('is-open')) {
+    closeWorkModal();
+  }
+});
 
 renderFilters();
 renderWorks();

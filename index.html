@@ -37,8 +37,6 @@
         <li>장편영화 편집보조</li>
         <li>드라마 편집보조</li>
       </ul>
-
-      <a href="#about" class="hero__scroll" aria-label="아래로 스크롤">↓</a>
     </section>
 
     <!-- 소개 / 문의 -->
@@ -50,6 +48,11 @@
       </p>
       <a href="#contact" class="btn">문의하기</a>
     </section>
+
+    <!-- 스크롤 유도 -->
+    <div class="scroll-cue">
+      <a href="#work" class="hero__scroll" aria-label="아래로 스크롤">↓</a>
+    </div>
 
     <!-- 필모그래피 -->
     <section class="filmography" id="work">
@@ -80,6 +83,21 @@
     </ul>
     <p class="footer__copy">© 2026 INFLAMMABLE EDIT.</p>
   </footer>
+
+  <!-- 작품 상세 모달 -->
+  <div class="work-modal" id="workModal" aria-hidden="true">
+    <div class="work-modal__backdrop" data-close></div>
+    <div class="work-modal__panel" role="dialog" aria-modal="true" aria-labelledby="workModalTitle">
+      <button type="button" class="work-modal__close" data-close aria-label="닫기">✕</button>
+      <div class="work-modal__thumb" id="workModalThumb"></div>
+      <div class="work-modal__body">
+        <div class="work-modal__meta" id="workModalMeta"></div>
+        <h3 class="work-modal__title" id="workModalTitle"></h3>
+        <p class="work-modal__desc" id="workModalDesc"></p>
+        <div class="work-modal__facts" id="workModalFacts"></div>
+      </div>
+    </div>
+  </div>
 
 <script src="script.js"></script>
 </body>
