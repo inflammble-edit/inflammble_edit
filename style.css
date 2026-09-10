@@ -132,8 +132,8 @@ section {
 /* -------------------- 히어로 -------------------- */
 
 .hero {
-  padding-top: clamp(3rem, 8vh, 5.5rem);
-  padding-bottom: clamp(3rem, 8vh, 5rem);
+  padding-top: clamp(2rem, 5vh, 3.5rem);
+  padding-bottom: clamp(1.5rem, 4vh, 2.5rem);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -141,9 +141,9 @@ section {
 }
 
 .hero__figure {
-  width: clamp(170px, 32vw, 250px);
+  width: clamp(150px, 26vw, 210px);
   aspect-ratio: 480 / 615;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .hero__photo {
@@ -169,7 +169,7 @@ section {
   gap: 0.5rem 0.75rem;
   color: var(--fg-dim);
   font-size: 0.95rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .hero__tags li:not(:last-child)::after {
@@ -203,14 +203,14 @@ section {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 0 1.5rem clamp(2.5rem, 6vh, 4rem);
+  padding: 0 1.5rem clamp(1.5rem, 4vh, 2.5rem);
 }
 
 /* -------------------- 소개 / 문의 -------------------- */
 
 .about {
-  padding-top: clamp(2rem, 6vh, 3.5rem);
-  padding-bottom: clamp(3.5rem, 9vh, 6rem);
+  padding-top: clamp(1.5rem, 4vh, 2.5rem);
+  padding-bottom: clamp(2rem, 5vh, 3rem);
   text-align: center;
   border-top: 1px solid var(--line);
 }
