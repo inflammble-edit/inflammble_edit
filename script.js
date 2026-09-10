@@ -3,18 +3,18 @@
 // ---------------------------------------------
 const ROLES = [
   { id: 'all', label: '전체' },
-  { id: 'lead', label: '리드 에디터' },
-  { id: 'assistant', label: '조에디터' },
-  { id: 'trailer', label: '트레일러 에디터' },
-  { id: 'doc', label: '다큐멘터리 에디터' },
+  { id: 'feature', label: '장편영화 편집' },
+  { id: 'short', label: '단편영화 편집' },
+  { id: 'featureassistant', label: '장편영화 편집보조' },
+  { id: 'dramaassistant', label: '드라마 편집보조' },
 ];
 
 // 역할별 썸네일 듀오톤 (CSS 변수 매핑)
 const ROLE_TONES = {
-  lead: ['--tone-drama-1', '--tone-drama-2'],
-  assistant: ['--tone-thriller-1', '--tone-thriller-2'],
-  trailer: ['--tone-trailer-1', '--tone-trailer-2'],
-  doc: ['--tone-doc-1', '--tone-doc-2'],
+  feature: ['--tone-drama-1', '--tone-drama-2'],
+  short: ['--tone-thriller-1', '--tone-thriller-2'],
+  featureassistant: ['--tone-trailer-1', '--tone-trailer-2'],
+  dramaassistant: ['--tone-doc-1', '--tone-doc-2'],
 };
 
 // ---------------------------------------------
