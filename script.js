@@ -43,8 +43,7 @@ const WORKS = [
     role: 'feature',
     roleLabel: '장편영화 편집',
     runtime: '79분',
-    festival: '제30회 부천국제판타스틱영화제 부천초이스 코리안 상영 (2026)
-      2026 칸 판타스틱7 선정',
+    festival: '제30회 부천국제판타스틱영화제 부천초이스 코리안 상영 (2026) · 2026 칸 판타스틱7 선정',
     synopsis:
       '대기 오염으로 인류는 방공호에서 살아야 하는 디스토피아적 미래. 과학자 대승은 딸 신아를 대상으로 끊임없이 실험을 한다. 오염된 바깥 환경에서도 생존할 수 있는 새로운 인류는 과연 탄생할 수 있을까?',
   },
@@ -229,7 +228,7 @@ function renderWorks() {
   emptyState.hidden = true;
 
   filtered.forEach((work) => {
-    const [toneAVar, toneBVar] = ROLE_TONES[work.role] || ROLE_TONES.lead;
+    const [toneAVar, toneBVar] = ROLE_TONES[work.role] || ROLE_TONES.feature;
 
     const li = document.createElement('li');
     li.className = 'work';
@@ -281,7 +280,7 @@ function renderWorks() {
 function openWorkModal(work) {
   if (!workModal) return;
 
-  const [toneAVar, toneBVar] = ROLE_TONES[work.role] || ROLE_TONES.lead;
+  const [toneAVar, toneBVar] = ROLE_TONES[work.role] || ROLE_TONES.feature;
 
   workModalThumb.innerHTML = `
     <span class="work-modal__thumb-tone" style="--tone-a: var(${toneAVar}); --tone-b: var(${toneBVar});"></span>
