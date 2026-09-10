@@ -519,7 +519,9 @@ section {
   .filter__btn,
   .btn,
   .hero__scroll,
-  .nav__menu a {
+  .nav__menu a,
+  .work-modal,
+  .work-modal__panel {
     transition: none;
   }
 }
@@ -534,14 +536,20 @@ body.no-scroll {
   position: fixed;
   inset: 0;
   z-index: 50;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
 .work-modal.is-open {
-  display: flex;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .work-modal__backdrop {
@@ -561,6 +569,12 @@ body.no-scroll {
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 1.75rem;
+  transform: translateY(14px) scale(0.98);
+  transition: transform 0.25s ease;
+}
+
+.work-modal.is-open .work-modal__panel {
+  transform: translateY(0) scale(1);
 }
 
 .work-modal__close {
