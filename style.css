@@ -346,6 +346,7 @@ section {
 .work__info {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.9rem;
 }
 
@@ -389,7 +390,6 @@ section {
   gap: 0.5rem;
   font-size: 0.85rem;
   color: var(--fg-faint);
-  margin-top: auto;
 }
 
 .work__facts .fact-row {
