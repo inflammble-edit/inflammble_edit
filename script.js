@@ -208,7 +208,7 @@ const WORKS = [
   },
           {
     id: 16,
-    image: 'images/clown.jpg',
+    image: 'images/nara.jpg',
     year: 2019,
     title: '나랏말싸미',
     director: '조철현',
