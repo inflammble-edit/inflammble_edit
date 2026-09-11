@@ -188,8 +188,8 @@ function renderWorks() {
         <h3 class="work__title">${work.title}</h3>
         <p class="work__desc">${work.synopsis}</p>
         <div class="work__facts">
-          <span><strong>러닝타임</strong> ${work.runtime}</span>
-          ${work.festival ? `<span><strong>비고</strong> ${work.festival}</span>` : ''}
+          <span class="fact-row"><strong>러닝타임</strong><span class="fact-value">${work.runtime}</span></span>
+          ${work.festival ? `<span class="fact-row"><strong>비고</strong><span class="fact-value">${work.festival}</span></span>` : ''}
         </div>
       </div>
       <div class="work__thumb">
@@ -234,13 +234,13 @@ function openWorkModal(work) {
       onerror="this.style.display='none'"
     />
   `;
-  workModalMeta.innerHTML = `<span>${work.year}</span><span>${work.director} 감독</span><span>${work.genre}</span>`;
+  workModalMeta.innerHTML = `<span>${work.year}</span><span>${work.director} 감독</span>${work.genre ? `<span>${work.genre}</span>` : ''}`;
   workModalTitle.textContent = work.title;
   workModalDesc.textContent = work.synopsis;
   workModalFacts.innerHTML = `
-    <span><strong>역할</strong>${work.roleLabel}</span>
-    <span><strong>러닝타임</strong>${work.runtime}</span>
-    ${work.festival ? `<span><strong>비고</strong>${work.festival}</span>` : ''}
+    <span class="fact-row"><strong>역할</strong><span class="fact-value">${work.roleLabel}</span></span>
+    <span class="fact-row"><strong>러닝타임</strong><span class="fact-value">${work.runtime}</span></span>
+    ${work.festival ? `<span class="fact-row"><strong>비고</strong><span class="fact-value">${work.festival}</span></span>` : ''}
   `;
 
   workModal.classList.add('is-open');
