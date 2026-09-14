@@ -646,3 +646,18 @@ document.addEventListener('keydown', (e) => {
 
 renderFilters();
 renderWorks();
+
+// ---------------------------------------------
+// 맨 위로 이동 버튼
+// ---------------------------------------------
+const backToTop = document.getElementById('backToTop');
+
+if (backToTop) {
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('is-visible', window.scrollY > 480);
+  });
+
+  backToTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
