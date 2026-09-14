@@ -4,7 +4,30 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="theme-color" content="#07070a" />
+
+<!-- 파비콘 -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="alternate icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+
+<!-- 폰트 로딩 속도 개선 (preconnect) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" />
+
 <title>박주희 — INFLAMMABLE EDIT</title>
+
+<!-- 링크 공유 시 미리보기 (Open Graph / Twitter Card) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="INFLAMMABLE EDIT" />
+<meta property="og:title" content="박주희 — INFLAMMABLE EDIT" />
+<meta property="og:description" content="장편, 다큐멘터리, 예고편을 오가며 컷과 컷 사이의 호흡으로 이야기의 리듬을 만드는 영화 편집자 박주희의 필모그래피." />
+<meta property="og:image" content="profile.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="박주희 — INFLAMMABLE EDIT" />
+<meta name="twitter:description" content="장편, 다큐멘터리, 예고편을 오가며 컷과 컷 사이의 호흡으로 이야기의 리듬을 만드는 영화 편집자 박주희의 필모그래피." />
+<meta name="twitter:image" content="profile.png" />
+
 <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -45,8 +68,8 @@
       <p class="about__statement">
         안녕하세요, 편집하는 박주희입니다.<br /><br />
         한국예술종합학교에서 영화 편집을 전공하고,<br />
-        김상범편집실에서 약 4년간 편집 어시스턴트로서<br /> 20 작품 이상의 상업장편영화에 참여하여 실무 경험을 쌓았습니다.<br />
-        이후 프리랜서 편집자로 다수의 <br />드라마/장편영화 편집보, 서브편집, 단/장편 영화 편집을 했습니다.<br />
+        김상범편집실에서 약 4년간 편집 어시스턴트로서 20 작품 이상의 상업장편영화에 참여하여 실무 경험을 쌓았습니다.<br />
+        이후 프리랜서 편집자로 다수의 드라마/장편영화 편집보, 서브편집, 단/장편 영화 편집을 했습니다.<br />
         Adobe Premiere Pro를 기반으로 작업하고 있습니다.
       </p>
       <a href="mailto:inflammable.edit@gmail.com" class="btn">문의하기</a>
@@ -92,7 +115,11 @@
     <div class="work-modal__backdrop" data-close></div>
     <div class="work-modal__panel" role="dialog" aria-modal="true" aria-labelledby="workModalTitle">
       <button type="button" class="work-modal__close" data-close aria-label="닫기">✕</button>
-      <div class="work-modal__thumb" id="workModalThumb"></div>
+      <div class="work-modal__media">
+        <div class="work-modal__thumb" id="workModalThumb"></div>
+        <button type="button" class="work-modal__nav work-modal__nav--prev" id="workModalPrev" aria-label="이전 작품">‹</button>
+        <button type="button" class="work-modal__nav work-modal__nav--next" id="workModalNext" aria-label="다음 작품">›</button>
+      </div>
       <div class="work-modal__body">
         <div class="work-modal__meta" id="workModalMeta"></div>
         <h3 class="work-modal__title" id="workModalTitle"></h3>

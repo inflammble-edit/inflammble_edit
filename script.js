@@ -509,6 +509,31 @@ const workModalMeta = document.getElementById('workModalMeta');
 const workModalTitle = document.getElementById('workModalTitle');
 const workModalDesc = document.getElementById('workModalDesc');
 const workModalFacts = document.getElementById('workModalFacts');
+const workModalPrev = document.getElementById('workModalPrev');
+const workModalNext = document.getElementById('workModalNext');
+
+// 팝업 안 이전/다음 탐색을 위한 상태
+let activeWorksList = WORKS;
+let currentWorkIndex = -1;
+
+// 썸네일 스크롤 페이드인
+const prefersReducedMotion =
+  window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const thumbObserver =
+  !prefersReducedMotion && 'IntersectionObserver' in window
+    ? new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              thumbObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 }
+      )
+    : null;
 
 function renderFilters() {
   filterList.innerHTML = '';
@@ -539,6 +564,7 @@ function renderWorks() {
   const filtered =
     activeRole === 'all' ? WORKS : WORKS.filter((w) => w.role === activeRole);
 
+  activeWorksList = filtered;
   workList.innerHTML = '';
 
   if (filtered.length === 0) {
@@ -582,24 +608,30 @@ function renderWorks() {
       </div>
     `;
 
-    li.addEventListener('click', () => openWorkModal(work));
+    li.addEventListener('click', () => openWorkModal(work, filtered));
     li.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        openWorkModal(work);
+        openWorkModal(work, filtered);
       }
     });
 
     workList.appendChild(li);
   });
+
+  // 썸네일 스크롤 페이드인 등록
+  const thumbs = workList.querySelectorAll('.work__thumb');
+  if (thumbObserver) {
+    thumbs.forEach((el) => thumbObserver.observe(el));
+  } else {
+    thumbs.forEach((el) => el.classList.add('is-visible'));
+  }
 }
 
 // ---------------------------------------------
 // 상세 모달
 // ---------------------------------------------
-function openWorkModal(work) {
-  if (!workModal) return;
-
+function renderWorkModalContent(work) {
   const [toneAVar, toneBVar] = ROLE_TONES[work.role] || ROLE_TONES.feature;
 
   workModalThumb.innerHTML = `
@@ -620,9 +652,28 @@ function openWorkModal(work) {
     ${work.festival ? `<span class="fact-row"><strong>비고</strong><span class="fact-value">${work.festival}</span></span>` : ''}
   `;
 
+  // 특정 작품에 바로 연결할 수 있는 링크 (주소창 해시만 갱신, 스크롤 이동 없음)
+  history.replaceState(null, '', `#work-${work.id}`);
+}
+
+function openWorkModal(work, list) {
+  if (!workModal) return;
+
+  activeWorksList = list && list.length ? list : WORKS;
+  currentWorkIndex = activeWorksList.findIndex((w) => w.id === work.id);
+
+  renderWorkModalContent(work);
+
   workModal.classList.add('is-open');
   workModal.setAttribute('aria-hidden', 'false');
   document.body.classList.add('no-scroll');
+}
+
+function showRelativeWork(offset) {
+  if (!activeWorksList.length || currentWorkIndex === -1) return;
+  currentWorkIndex =
+    (currentWorkIndex + offset + activeWorksList.length) % activeWorksList.length;
+  renderWorkModalContent(activeWorksList[currentWorkIndex]);
 }
 
 function closeWorkModal() {
@@ -630,6 +681,8 @@ function closeWorkModal() {
   workModal.classList.remove('is-open');
   workModal.setAttribute('aria-hidden', 'true');
   document.body.classList.remove('no-scroll');
+  // 공유 가능한 딥링크 해시를 정리
+  history.replaceState(null, '', location.pathname + location.search);
 }
 
 if (workModal) {
@@ -638,14 +691,46 @@ if (workModal) {
   });
 }
 
+if (workModalPrev) {
+  workModalPrev.addEventListener('click', () => showRelativeWork(-1));
+}
+
+if (workModalNext) {
+  workModalNext.addEventListener('click', () => showRelativeWork(1));
+}
+
 document.addEventListener('keydown', (e) => {
-  if (workModal && e.key === 'Escape' && workModal.classList.contains('is-open')) {
+  if (!workModal || !workModal.classList.contains('is-open')) return;
+  if (e.key === 'Escape') {
     closeWorkModal();
+  } else if (e.key === 'ArrowLeft') {
+    showRelativeWork(-1);
+  } else if (e.key === 'ArrowRight') {
+    showRelativeWork(1);
   }
 });
 
+// ---------------------------------------------
+// 특정 작품 딥링크 (#work-3 형태의 주소로 바로 접속 시 해당 작품 팝업 오픈)
+// ---------------------------------------------
+function openWorkFromHash() {
+  const match = location.hash.match(/^#work-(\d+)$/);
+  if (!match) return;
+
+  const id = Number(match[1]);
+  const work = WORKS.find((w) => w.id === id);
+  if (!work) return;
+
+  const filmographySection = document.getElementById('work');
+  if (filmographySection) {
+    filmographySection.scrollIntoView({ block: 'start' });
+  }
+  openWorkModal(work, WORKS);
+}
+
 renderFilters();
 renderWorks();
+openWorkFromHash();
 
 // ---------------------------------------------
 // 맨 위로 이동 버튼
